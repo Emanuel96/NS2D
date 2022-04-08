@@ -1,4 +1,4 @@
-# ignore all files in any directory named build
+# ignore all files in any directory
 INPUT/
 RESULTS/
 bin/
