@@ -1,5 +1,5 @@
 # ignore all files in any directory
-INPUT/
+# INPUT/
 RESULTS/
 bin/
 obj/
