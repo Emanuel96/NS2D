@@ -1,5 +1,0 @@
-# ignore all files in any directory
-INPUT/
-RESULTS/
-bin/
-obj/
