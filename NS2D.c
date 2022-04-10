@@ -103,7 +103,8 @@ int main()
 
     //strcpy(fname,"INPUT.dat");
     //strcpy(fname,"INPUT_CAVITY.dat");
-    strcpy(fname,"./INPUT/INPUT_BFS.dat");
+    //strcpy(fname,"./INPUT/INPUT_BFS.dat");
+    strcpy(fname,"./INPUT/INPUT_CYLINDER.dat");
 
     //printf("Insert the input file name: ");
     //gets(fname);
@@ -252,7 +253,8 @@ int main()
 
     //GRID(XD,YD,NPX,NPY,X,Y,XU,XV,YU,YV,DX,DY,DXU,DXV,DYU,DYV);
     //GRID_CAVITY(XD,YD,NPX,NPY,X,Y,XU,XV,YU,YV,DX,DY,DXU,DXV,DYU,DYV);
-    GRID_BFS(XD,YD,NPX,NPY,X,Y,XU,XV,YU,YV,DX,DY,DXU,DXV,DYU,DYV);
+    //GRID_BFS(XD,YD,NPX,NPY,X,Y,XU,XV,YU,YV,DX,DY,DXU,DXV,DYU,DYV);
+    GRID_CYLINDER(XD,YD,NPX,NPY,X,Y,XU,XV,YU,YV,DX,DY,DXU,DXV,DYU,DYV);
 
     // PROBLEM INITIALIZATION
 
@@ -287,7 +289,8 @@ int main()
         {
             //BC(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T,PID_c);
             //BC_CAVITY(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
-            BC_BFS(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
+            //BC_BFS(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
+            BC_CYLINDER(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
 
             CALC_U(U,V,P,NPX,NPY,Y,YV,DX,DY,DXU,DXV,DYU,DYV,dt,RHO,VIS,VIS_T);
             CALC_V(U,V,P,NPX,NPY,X,XU,DX,DY,DXU,DXV,DYU,DYV,dt,RHO,VIS,VIS_T);
@@ -341,7 +344,8 @@ int main()
 
         //BC(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T,PID_c);
         //BC_CAVITY(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
-        BC_BFS(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
+        //BC_BFS(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
+        BC_CYLINDER(U,V,P,NPX,NPY,U_in,X,Y,t*dts,T);
 
         if ( t%control == 0 )
         {
@@ -391,7 +395,7 @@ int main()
         PROPS(T,P,vis,VIS,VIS_T,RHO,CP,K,NPX,NPY,U,V,X,Y,DX,DY,DXU,DYU,DXV,DYV,I_x,I_y,Re,dts);
         CALC_U_t(U_NEW,P,U,V,NPX,NPY,Y,YV,DX,DY,DXU,DXV,DYU,DYV,dts,I_x,RHO,VIS,VIS_T);
         CALC_V_t(V_NEW,P,U,V,NPX,NPY,X,XU,DX,DY,DXU,DXV,DYU,DYV,dts,I_y,RHO,VIS,VIS_T);
-        CALC_T_t(T_NEW,T,U,V,NPX,NPY,DX,DY,DXU,DXV,DYU,DYV,dts,RHO,VIS,CP,K);
+        //CALC_T_t(T_NEW,T,U,V,NPX,NPY,DX,DY,DXU,DXV,DYU,DYV,dts,RHO,VIS,CP,K);
     }
 
     //POS PROCESSING

@@ -62,25 +62,25 @@ void BC_BFS(double **U, double **V, double **P, int NPX, int NPY, double U_in, d
 
     //CALC_T
 
-    for(i=0;i<=NPX-1;i++)
-    {
-        for(j=0;j<=NPY-1;j++)
-        {
-            if ( ( ( X[i] >= 0.25 && X[i] <= 0.50 ) && ( Y[j] >= 0.4 && Y[j] <= 0.6 ) ) )
-            {
-                T[i][j] = 273.15 - 100/(1+exp(-0.5*(time-10)));
-            }
-        }
-
-        //T[i][0]=50;
-        //T[i][NPY-1]=300;
-    }
-
-    for(j=0;j<=NPY-1;j++)
-    {
-        //T[0][j] = 300;
-        T[NPX-1][j]=T[NPX-2][j];
-    }
+//    for(i=0;i<=NPX-1;i++)
+//    {
+//        for(j=0;j<=NPY-1;j++)
+//        {
+//            if ( ( ( X[i] >= 0.25 && X[i] <= 0.50 ) && ( Y[j] >= 0.4 && Y[j] <= 0.6 ) ) )
+//            {
+//                T[i][j] = 273.15 - 100/(1+exp(-0.5*(time-10)));
+//            }
+//        }
+//
+//        //T[i][0]=50;
+//        //T[i][NPY-1]=300;
+//    }
+//
+//    for(j=0;j<=NPY-1;j++)
+//    {
+//        //T[0][j] = 300;
+//        T[NPX-1][j]=T[NPX-2][j];
+//    }
 
 }
 
@@ -599,6 +599,83 @@ void BC_SBY(double **U, double **V, double **P, int NPX, int NPY, double U_in, d
 //                V[i][j+1]=0;
 //                //T[i][j]=500;
 //            }
+        }
+    }
+
+}
+
+void BC_CYLINDER(double **U, double **V, double **P, int NPX, int NPY, double U_in, double *X, double *Y, double time, double **T)
+{
+    int i, j;
+    double Y_STEP = 0;
+    //double a = PID_c;
+
+    //CALC_U
+
+    for(j=0;j<=NPY-1;j++)
+    {
+        U[1][j]=0;
+        //U[1][j]=U[2][j];
+        U[0][j]=U[1][j];
+
+        if ( Y[j] >= Y_STEP && Y[j] <= Y[NPY-1]-Y_STEP )
+        {
+            U[1][j]=U_in;
+            //U[1][j]=U[2][j];
+            //U[1][j]=U_in+U_in*sin(2*3.1415*(1/0.5)*3.5*Y[j]);
+            //U[1][j]=(U_in/log(a*0.5+1))*log(a*(Y[j]-0.00)+1);
+            U[0][j]=U[1][j];
+        }
+    }
+
+    for(j=0;j<=NPY-1;j++)
+    {
+        U[NPX-1][j]=0;//U[NPX-2][j];
+        U[NPX][j]=0;//U[NPX-1][j];
+    }
+
+    for(i=0;i<=NPX-1;i++)
+    {
+        U[i][0]=0;
+        U[i][NPY-1]=0;//U[i][NPY-2];//0;
+    }
+
+    //CALC_V
+
+    for(j=0;j<=NPY-1;j++)
+    {
+        V[0][j]=0;//V[1][j];//0;
+        V[NPX-1][j]=0;//V[NPX-2][j];
+    }
+
+    //CALC_P
+
+    for(i=0;i<=NPX-1;i++)
+    {
+        P[i][0]=P[i][1];
+        P[i][NPY-1]=P[i][NPY-2];
+    }
+
+    for(j=0;j<=NPY-1;j++)
+    {
+        P[0][j]=P[1][j];
+        P[NPX-1][j]=P[NPX-2][j];
+    }
+
+    //CYLINDER
+
+    for(i=0;i<=NPX-1;i++)
+    {
+        for(j=0;j<=NPY-1;j++)
+        {
+            if ( (X[i]+0.05*cos(2*3.1415*0.5*time)-0.25)*(X[i]+0.05*cos(2*3.1415*0.5*time)-0.25)/(0.05*0.05) + (Y[j]+0.05*sin(2*3.1415*0.5*time)-0.25)*(Y[j]+0.0*sin(2*3.1415*0.5*time)-0.25)/(0.05*0.05) <= 1 )
+            {
+                U[i][j]=2*3.1415*0.05*0.5*sin(2*3.1415*0.5*time);
+                U[i+1][j]=U[i][j];
+                V[i][j]=-2*3.1415*0.05*0.5*cos(2*3.1415*0.5*time);
+                V[i][j+1]=V[i][j];
+                //T[i][j]=1000;
+            }
         }
     }
 

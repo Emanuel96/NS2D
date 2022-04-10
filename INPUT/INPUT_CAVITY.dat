@@ -1,9 +1,9 @@
 Number of X points
-100
+50
 Number of Y points
-100
+50
 Number of Time Steps
-2000
+5000
 Time Step [s]
 0.01
 Maximum number of iterations per time step
@@ -13,15 +13,15 @@ Rate of convergence (NOT BEING USED AT THE MOMENT -> DT = DTS)
 Under Relaxation Factor (Pressure Correction)
 0.3
 Time Step Control Check
-80
+100
 Number of sweeps
 1
 Maximum source term
 1e-3
 X length [m]
-2
+0.5
 Y length [m]
-1
+0.5
 Inlet Speed [m/s]
 0.10
 Density [kg/m3]
@@ -33,9 +33,9 @@ Inlet Temperature [K]
 Specific Heat [-]
 1000
 Thermal Conductivity [-]
-0.026
+0.5
 Characteristic Length [m]
-0.05
+0.5
 Characteristic Speed [m/s]
 0.05
 Characteristic Time [s]
